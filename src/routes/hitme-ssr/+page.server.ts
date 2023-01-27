@@ -8,25 +8,25 @@ export async function load({ fetch }: any) {
     const text = await res.text();
     console.log('fetch finished');
 
-    console.log('starting prisma connection');
-    try {
-        await prisma.$connect();
-    } catch(e) {
-        console.log('connection error');
-        console.log(e);
-    }
+    // console.log('starting prisma connection');
+    // try {
+    //     await prisma.$connect();
+    // } catch(e) {
+    //     console.log('connection error');
+    //     console.log(e);
+    // }
     
-    console.log('prisma connection established');
+    // console.log('prisma connection established');
 
     let users;
 
-    try {
-        users = await prisma.user.findMany();
-    } catch(e) {
-        console.log('findMany error');
-        console.log(e);
-        await prisma.$disconnect();
-    }
+    // try {
+    //     users = await prisma.user.findMany();
+    // } catch(e) {
+    //     console.log('findMany error');
+    //     console.log(e);
+    //     await prisma.$disconnect();
+    // }
 
     console.log('found many, disconnecting')
     prisma.$disconnect();
@@ -34,7 +34,7 @@ export async function load({ fetch }: any) {
     console.log('hitme-ssr load() finished');
     return {
         message: text,
-        users: users ?? []
+        users: users ?? [{ name: 'nobody', email: 'nobody@mail.com' }]
     }
 }
 
