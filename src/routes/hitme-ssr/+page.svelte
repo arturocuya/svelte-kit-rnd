@@ -7,13 +7,16 @@
 
     let userName: string | undefined;
     let userEmail: string | undefined;
+    let loading = false;
 
     const addUser = async() => {
         if (userName && userEmail) {
+            loading = true;
             console.log('adding user')
             users = await trpc().addUser.query({ name: userName, email: userEmail });
             userName = '';
             userEmail = '';
+            loading = false;
         }
     }
 </script>
@@ -28,9 +31,12 @@
 <input type="text" bind:value={userName} placeholder="Name" />
 <input type="text" bind:value={userEmail} placeholder="Email" />
 <button on:click|preventDefault={addUser}>Add user</button>
+{#if loading}
+    <p>Loading...</p>
+{/if}
 <ul>
     {#each users as user}
-        <li>{user.name}</li>
+        <li>{user.name} ({user.email})</li>
     {/each}
 </ul>
 
