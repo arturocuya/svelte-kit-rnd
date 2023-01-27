@@ -9,7 +9,13 @@ export async function load({ fetch }: any) {
     console.log('fetch finished');
 
     console.log('starting prisma connection');
-    await prisma.$connect();
+    try {
+        await prisma.$connect();
+    } catch(e) {
+        console.log('connection error');
+        console.log(e);
+    }
+    
     console.log('prisma connection established');
 
     let users;
@@ -17,6 +23,7 @@ export async function load({ fetch }: any) {
     try {
         users = await prisma.user.findMany();
     } catch(e) {
+        console.log('findMany error');
         console.log(e);
         await prisma.$disconnect();
     }
