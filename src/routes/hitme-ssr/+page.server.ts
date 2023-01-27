@@ -1,12 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import type { AsyncReturnType } from "../../lib/asyncReturnType";
+import prisma from "../../lib/prisma";
 
-/** @type {import('./$types').PageLoad} */
 export async function load({ fetch }: any) {
     const endpoint = '/api/hitme';
     const res = await fetch(endpoint);
     const text = await res.text();
 
-    const prisma = new PrismaClient();
     await prisma.$connect();
 
     let users;
@@ -25,3 +24,5 @@ export async function load({ fetch }: any) {
         users: users ?? []
     }
 }
+
+export type PageData = AsyncReturnType<typeof load>;

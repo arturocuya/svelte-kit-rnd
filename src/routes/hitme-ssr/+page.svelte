@@ -1,6 +1,21 @@
-<script>
-    /** @type {import('./$types').PageData} */
-    export let data;
+<script lang="ts">
+    import { trpc } from '../../lib/trpc/client';
+    import type { PageData } from './+page.server';
+    export let data: PageData;
+
+    let users = data.users;
+
+    let userName: string | undefined;
+    let userEmail: string | undefined;
+
+    const addUser = async() => {
+        if (userName && userEmail) {
+            console.log('adding user')
+            users = await trpc().addUser.query({ name: userName, email: userEmail });
+            userName = '';
+            userEmail = '';
+        }
+    }
 </script>
 
 <a href="/">Back</a>
@@ -8,8 +23,13 @@
 <p>The following text is the result of an SSR load:</p>
 
 <p>{data.message}</p>
+
+<p>Now, let's add a user:</p>
+<input type="text" bind:value={userName} placeholder="Name" />
+<input type="text" bind:value={userEmail} placeholder="Email" />
+<button on:click|preventDefault={addUser}>Add user</button>
 <ul>
-    {#each data.users as user}
+    {#each users as user}
         <li>{user.name}</li>
     {/each}
 </ul>
