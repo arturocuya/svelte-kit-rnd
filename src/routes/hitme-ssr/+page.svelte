@@ -8,4 +8,9 @@
 <p>The following text is the result of an SSR load:</p>
 
 <p>{data.message}</p>
+<ul>
+    {#each data.users as user}
+        <li>{user.name}</li>
+    {/each}
+</ul>
 
