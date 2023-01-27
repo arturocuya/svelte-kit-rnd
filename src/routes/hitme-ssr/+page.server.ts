@@ -1,5 +1,5 @@
 import type { AsyncReturnType } from "../../lib/asyncReturnType";
-import prisma from "../../lib/prisma";
+// import prisma from "../../lib/prisma";
 
 export async function load({ fetch }: any) {
     console.log('hitme-ssr load() called');
@@ -28,8 +28,8 @@ export async function load({ fetch }: any) {
     //     await prisma.$disconnect();
     // }
 
-    console.log('found many, disconnecting')
-    prisma.$disconnect();
+    // console.log('found many, disconnecting')
+    // prisma.$disconnect();
 
     console.log('hitme-ssr load() finished');
     return {
