@@ -10,14 +10,14 @@
     let loading = false;
 
     const addUser = async() => {
-        // if (userName && userEmail) {
-        //     loading = true;
-        //     console.log('adding user')
-        //     users = await trpc().addUser.query({ name: userName, email: userEmail });
-        //     userName = '';
-        //     userEmail = '';
-        //     loading = false;
-        // }
+        if (userName && userEmail) {
+            loading = true;
+            console.log('adding user')
+            users = await trpc().addUser.query({ name: userName, email: userEmail });
+            userName = '';
+            userEmail = '';
+            loading = false;
+        }
     }
 </script>
 
