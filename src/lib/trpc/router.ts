@@ -20,6 +20,21 @@ export const router = t.router({
     const allUsers = await ctx.prisma.user.findMany();
     
     return allUsers;
+  }),
+  deleteUser: t.procedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
+    await ctx.prisma.$connect();
+
+    await ctx.prisma.user.delete({
+      where: {
+        id: input.id
+      }
+    });
+
+    const allUsers = await ctx.prisma.user.findMany();
+
+    return allUsers;
   })
 });
 

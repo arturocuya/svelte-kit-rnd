@@ -19,6 +19,12 @@
             loading = false;
         }
     }
+
+    const deleteUser =  async (userId: string) => {
+        loading = true;
+        users = await trpc().deleteUser.query({ id: userId });
+        loading = false;
+    }
 </script>
 
 <a href="/">Back</a>
@@ -36,7 +42,10 @@
 {/if}
 <ul>
     {#each users as user}
-        <li>{user.name} ({user.email})</li>
+        <li>
+            <span>{user.name} ({user.email})</span>
+            <button on:click|preventDefault={() => deleteUser(user.id)}>Delete</button>
+        </li>
     {/each}
 </ul>
 
