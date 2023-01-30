@@ -1,6 +1,6 @@
 <script lang="ts">
     import { trpc } from '../../lib/trpc/client';
-    import type { PageData } from './+page.server';
+    import type { PageData } from './$types';
     export let data: PageData;
 
     let users = data.users;

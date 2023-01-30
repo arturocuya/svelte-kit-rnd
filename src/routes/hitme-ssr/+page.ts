@@ -1,7 +1,7 @@
-import type { AsyncReturnType } from "../../lib/asyncReturnType";
 import prisma from "../../lib/prisma";
+import type { PageLoad } from "./$types";
 
-export async function load({ fetch }: any) {
+export const load: PageLoad = async ({ fetch }) => {
     console.log('hitme-ssr load() called');
     const endpoint = '/api/hitme';
     const res = await fetch(endpoint);
@@ -37,5 +37,3 @@ export async function load({ fetch }: any) {
         users: users ?? [{ name: 'nobody', email: 'nobody@mail.com' }]
     }
 }
-
-export type PageData = AsyncReturnType<typeof load>;
